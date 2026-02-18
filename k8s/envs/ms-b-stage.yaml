@@ -1,0 +1,13 @@
+replicaCount: 2
+
+image:
+  repository: ghcr.io/cdesplanches-orka/microservice-b
+  tag: "873b0468a0599be210e56a0a66415d8dcda3564b" # or "latest" also
+
+serviceA:
+  url: "http://microservice-a:80"
+  grpcAddress: "microservice-a:50051"
+
+service:
+  port: 80
+  targetPort: 3001

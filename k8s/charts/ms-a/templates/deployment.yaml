@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: { { include "microservice-a.fullname" . } }
+spec:
+  replicas: { { .Values.replicaCount } }
+  selector:
+    matchLabels:
+      app: { { include "microservice-a.name" . } }
+  template:
+    metadata:
+      labels:
+        app: { { include "microservice-a.name" . } }
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: microservice-a
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - name: http
+              containerPort: { { .Values.service.targetPort } }
+            - name: grpc
+              containerPort: { { .Values.service.grpcPort } }
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: { { .Values.service.targetPort } }
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: { { .Values.service.targetPort } }
+            initialDelaySeconds: 10
+            periodSeconds: 10
