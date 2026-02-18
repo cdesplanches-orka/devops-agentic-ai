@@ -30,6 +30,3 @@ Write-Host "Verifying Stage Health..."
 # Mocking a health check
 Start-Sleep -Seconds 2
 Write-Host "Stage Environment is HEALTHY." -ForegroundColor Green
-    
-Write-Error "Values file not found at $stagePath"
-}
