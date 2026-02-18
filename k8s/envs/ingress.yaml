@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: microservices-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /api/a
+            pathType: Prefix
+            backend:
+              service:
+                name: microservice-a
+                port:
+                  number: 80
+          - path: /api/b
+            pathType: Prefix
+            backend:
+              service:
+                name: microservice-b
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: microservice-b
+                port:
+                  number: 80

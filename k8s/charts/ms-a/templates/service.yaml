@@ -1,17 +1,17 @@
-apiVersion: v1
+﻿apiVersion: v1
 kind: Service
 metadata:
-  name: { { include "microservice-a.fullname" . } }
+  name: "{{ include "microservice-a.fullname" . }}"
   labels:
-    app: { { include "microservice-a.name" . } }
+    app: "{{ include "microservice-a.name" . }}"
 spec:
   selector:
-    app: { { include "microservice-a.name" . } }
+    app: "{{ include "microservice-a.name" . }}"
   ports:
     - name: http
-      port: { { .Values.service.port } }
-      targetPort: { { .Values.service.targetPort } }
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
     - name: grpc
-      port: { { .Values.service.grpcPort } }
-      targetPort: { { .Values.service.grpcPort } }
+      port: {{ .Values.service.grpcPort }}
+      targetPort: {{ .Values.service.grpcPort }}
   type: ClusterIP

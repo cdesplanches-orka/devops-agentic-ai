@@ -1,24 +1,27 @@
-apiVersion: apps/v1
+﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: { { include "microservice-b.fullname" . } }
+  name: "{{ include "microservice-b.fullname" . }}"
+  labels:
+    app: "{{ include "microservice-b.name" . }}"
 spec:
-  replicas: { { .Values.replicaCount } }
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: { { include "microservice-b.name" . } }
+      app: "{{ include "microservice-b.name" . }}"
   template:
     metadata:
       labels:
-        app: { { include "microservice-b.name" . } }
+        app: "{{ include "microservice-b.name" . }}"
     spec:
       imagePullSecrets:
         - name: ghcr-secret
       containers:
         - name: microservice-b
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: Always
           ports:
-            - containerPort: { { .Values.service.targetPort } }
+            - containerPort: {{ .Values.service.targetPort }}
           env:
             - name: SERVICE_A_URL
               value: "{{ .Values.serviceA.url }}"
@@ -27,12 +30,12 @@ spec:
           readinessProbe:
             httpGet:
               path: /health
-              port: { { .Values.service.targetPort } }
+              port: {{ .Values.service.targetPort }}
             initialDelaySeconds: 5
             periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /health
-              port: { { .Values.service.targetPort } }
+              port: {{ .Values.service.targetPort }}
             initialDelaySeconds: 10
             periodSeconds: 10
