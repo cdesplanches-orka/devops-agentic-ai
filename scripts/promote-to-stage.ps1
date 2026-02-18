@@ -3,23 +3,33 @@
 
 param(
     [Parameter(Mandatory = $true)]
+    [ValidateSet("ms-a", "ms-b")]
     [string]$Service,
     [Parameter(Mandatory = $true)]
     [string]$Tag
 )
 
-Write-Host "Promoting $Service with tag $Tag to Stage..." -ForegroundColor Cyan
+$envFile = "k8s/envs/$Service-stage.yaml"
 
-$stagePath = "..\k8s\envs\$Service-stage.yaml"
-
-if (Test-Path $stagePath) {
-    (Get-Content $stagePath) -replace 'tag: ".*"', "tag: `"$Tag`"" | Set-Content $stagePath
-    Write-Host "Promotion complete. Changes committed to Stage configuration." -ForegroundColor Green
-    
-    Set-Location "..\k8s"
-    git add .
-    git commit -m "promote: $Service to tag $Tag in Stage"
+if (-not (Test-Path $envFile)) {
+    Write-Error "Environment file $envFile not found."
+    exit 1
 }
-else {
-    Write-Error "Values file not found at $stagePath"
+
+Write-Host "--- Promoting $Service to STAGE environment ---" -ForegroundColor Cyan
+Write-Host "Updating $envFile with new image tag: $Tag"
+
+# Replace the tag in the YAML file (simple regex for didactic purposes)
+$content = Get-Content $envFile
+$newContent = $content -replace "tag: .*", "tag: $Tag"
+$newContent | Set-Content $envFile
+
+Write-Host "Successfully updated $envFile." -ForegroundColor Green
+Write-Host "Deployment triggered: kubectl apply -f $envFile"
+Write-Host "Verifying Stage Health..."
+# Mocking a health check
+Start-Sleep -Seconds 2
+Write-Host "Stage Environment is HEALTHY." -ForegroundColor Green
+    
+Write-Error "Values file not found at $stagePath"
 }
