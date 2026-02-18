@@ -38,6 +38,11 @@ jobs:
             - name: Publish to GitHub Packages
               run: |
                   cd shared/grpc-lib
-                  npm publish
+                  CURRENT_VERSION=$(node -p "require('./package.json').version")
+                  if npm view @cdesplanches-orka/grpc-lib@$CURRENT_VERSION version > /dev/null 2>&1; then
+                    echo "Version $CURRENT_VERSION already published. Skipping."
+                  else
+                    npm publish
+                  fi
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
