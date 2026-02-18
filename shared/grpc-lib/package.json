@@ -1,0 +1,20 @@
+{
+    "name": "@cdesplanches-orka/grpc-lib",
+    "version": "1.0.0",
+    "description": "Shared gRPC library for microservices",
+    "main": "index.js",
+    "scripts": {
+        "build": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:./ --grpc_out=grpc_js:./ --plugin=protoc-gen-grpc=`which grpc_tools_node_protoc_plugin` -I ./protos ./protos/*.proto",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "@grpc/grpc-js": "^1.10.0",
+        "google-protobuf": "^3.21.2"
+    },
+    "devDependencies": {
+        "grpc-tools": "^1.12.4"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+    }
+}
