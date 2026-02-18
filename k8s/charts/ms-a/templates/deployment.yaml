@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: { { include "microservice-a.fullname" . } }
+  labels:
+    app: { { include "microservice-a.name" . } }
 spec:
   replicas: { { .Values.replicaCount } }
   selector:
