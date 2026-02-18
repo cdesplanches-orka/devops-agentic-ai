@@ -1,73 +1,56 @@
 # 🤖 DevOps Agentic AI Journey
 
-Welcome to this "didactic" repository. This project is not just a microservices architecture; it is a testament to the collaboration between a user and an **Agentic AI (Antigravity)** to build, automate, and structure a complete DevOps ecosystem.
+Welcome to this "didactic" repository. This project is a complete DevOps ecosystem built through the collaboration between a user and an **Agentic AI (Antigravity)**.
 
-## 🌟 The "Agentic AI" Experience
+## 🏗️ Industrial Architecture (Level 3)
 
-This repository has been entirely driven by an AI. Here are the major stages of its transformation:
+This project has evolved from a simple microservices demo to a professional-grade architecture:
 
-### 1. 🔍 Discovery & Analysis
-The AI began by exploring raw and disparate files. It identified two embryonic Node.js microservices and fragments of Kubernetes configuration.
-
-### 2. 🔗 gRPC Integration (Inter-Service Communication)
-Instead of simple HTTP calls, the AI proposed and implemented robust **gRPC** communication:
-- Creation of `shared/protos/service.proto`.
-- Implementation of the gRPC server in `ms-a`.
-- Implementation of the gRPC client with data aggregation in `ms-b`.
-
-### 3. ⚙️ Lifecycle Automation
-The AI laid the foundations for operational excellence:
-- **CI/CD**: Implementation of GitHub Actions for automated build and test.
-- **Docker**: Optimization of Dockerfiles with `HEALTHCHECK` instructions.
-- **Scripts**: Creation of PowerShell scripts (`scripts/`) for local build, testing, and promotion to the Stage environment.
-
-### 4. 🏗️ "Best Practices" Refactoring
-The AI suggested and executed a major structural reorganization to move from a cluttered root to a professional structure:
-- Grouping apps in `apps/`.
-- Centralizing IaC in `infrastructure/`.
-- Clean management of Kubernetes in `k8s/` (separation of charts and environments).
-
-## 🚀 Global Architecture
+### 1. Contract-First gRPC
+We use an industrial "Level 3" approach to service communication:
+- **Centralized Registry**: gRPC definitions live in `@cdesplanches-orka/grpc-lib` (`shared/grpc-lib`).
+- **Automated Distribution**: Protos are built and published to **GitHub Packages** via CI/CD.
+- **Decoupled Services**: Microservices consume the contract as a standard NPM versioned dependency.
 
 ```mermaid
 graph TD
-    User -->|HTTP| B[Microservice B]
-    B -->|gRPC / HTTP| A[Microservice A]
-    
-    subgraph "Infrastructure & Orchestration"
-        K8S[Kubernetes / Helm]
-        TF[Terraform]
-    end
-    
-    subgraph "Logic"
-        A
-        B
-        PROTOS[Shared Protos]
-    end
+    Proto[service.proto] --> CI_P[CI: Publish gRPC Lib]
+    CI_P --> Registry[(GitHub Package Registry)]
+    Registry --> MSA[Microservice A]
+    Registry --> MSB[Microservice B]
+    MSB -- gRPC --> MSA
 ```
 
-## 🛠️ Automation Tools
-
-| Script | Role |
-| :--- | :--- |
-| `scripts/build-and-test.ps1` | Docker build and local unit tests. |
-| `scripts/promote-to-stage.ps1` | Promotes a validated version from Dev to Stage. |
-| `scripts/create-pr.ps1` | Automates Pull Request creation via the GitHub API. |
+### 2. Poly-repo Management
+The microservices are managed as independent repositories linked via **Git Submodules**:
+- `apps/ms-a` -> [microservice-a](https://github.com/cdesplanches-orka/microservice-a)
+- `apps/ms-b` -> [microservice-b](https://github.com/cdesplanches-orka/microservice-b)
 
 ---
 
-## 👨‍🏫 How to use this repo?
-This project is designed to show how an AI can not only write code but also **manage the structure, infrastructure, and governance** of a complex project. 
+## 🚀 Key Features
+
+- **Automated CI/CD**: Full pipelines for testing, building, and pushing Docker images to GHCR.
+- **Infrastructure as Code**: Kubernetes manifests and Helm charts located in `k8s/`.
+- **DevOps Scripts**: PowerShell tools for environment promotion and PR automation.
+
+---
+
+## 🛠️ Getting Started
 
 ### Cloning the repository
-Since this repository uses Git Submodules for the microservices, you must use the `--recursive` flag when cloning:
+Since this project uses Git Submodules, use the `--recursive` flag:
 ```bash
 git clone --recursive https://github.com/cdesplanches-orka/devops-agentic-ai.git
 ```
 
-If you have already cloned it without the flag, run:
-```bash
-git submodule update --init --recursive
-```
+### Repository Structure
+- `apps/`: The microservices (Submodules).
+- `shared/grpc-lib/`: The central gRPC contract library.
+- `k8s/`: Kubernetes orchestration (Charts & Environments).
+- `scripts/`: Automation and governance utilities.
 
-Feel free to explore the `.gemini/antigravity/brain/` folder (if available) to see the execution plans and the AI's thought process during this project.
+---
+
+## 👨‍🏫 AI Journey
+Feel free to explore the `.gemini/antigravity/brain/` folder to see the execution plans, walkthroughs, and the AI's step-by-step reasoning.
