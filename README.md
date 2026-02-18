@@ -1,33 +1,33 @@
 # 🤖 DevOps Agentic AI Journey
 
-Bienvenue dans ce dépôt "didactique". Ce projet n'est pas seulement une architecture de microservices ; c'est le témoignage d'une collaboration entre un utilisateur et une **IA Agente (Antigravity)** pour construire, automatiser et structurer un écosystème DevOps complet.
+Welcome to this "didactic" repository. This project is not just a microservices architecture; it is a testament to the collaboration between a user and an **Agentic AI (Antigravity)** to build, automate, and structure a complete DevOps ecosystem.
 
-## 🌟 L'Expérience "Agentic AI"
+## 🌟 The "Agentic AI" Experience
 
-Ce dépôt a été entièrement piloté par une IA. Voici les grandes étapes de sa transformation :
+This repository has been entirely driven by an AI. Here are the major stages of its transformation:
 
-### 1. 🔍 Découverte & Analyse
-L'IA a débuté par une exploration de fichiers bruts et disparates. Elle a identifié deux microservices Node.js embryonnaires et des fragments de configuration Kubernetes.
+### 1. 🔍 Discovery & Analysis
+The AI began by exploring raw and disparate files. It identified two embryonic Node.js microservices and fragments of Kubernetes configuration.
 
-### 2. 🔗 Intégration gRPC (Communication Inter-Services)
-Plutôt que de simples appels HTTP, l'IA a proposé et implémenté une communication **gRPC** robuste :
-- Création de `shared/protos/service.proto`.
-- Implémentation du serveur gRPC dans `ms-a`.
-- Implémentation du client gRPC avec agrégation de données dans `ms-b`.
+### 2. 🔗 gRPC Integration (Inter-Service Communication)
+Instead of simple HTTP calls, the AI proposed and implemented robust **gRPC** communication:
+- Creation of `shared/protos/service.proto`.
+- Implementation of the gRPC server in `ms-a`.
+- Implementation of the gRPC client with data aggregation in `ms-b`.
 
-### 3. ⚙️ Automatisation du Cycle de Vie
-L'IA a mis en place les fondations de l'excellence opérationnelle :
-- **CI/CD** : Mise en place de GitHub Actions pour le build et le test automatique.
-- **Docker** : Optimisation des Dockerfiles avec des `HEALTHCHECK`.
-- **Scripts** : Création de scripts PowerShell (`scripts/`) pour le build local, le test, et la promotion vers l'environnement Stage.
+### 3. ⚙️ Lifecycle Automation
+The AI laid the foundations for operational excellence:
+- **CI/CD**: Implementation of GitHub Actions for automated build and test.
+- **Docker**: Optimization of Dockerfiles with `HEALTHCHECK` instructions.
+- **Scripts**: Creation of PowerShell scripts (`scripts/`) for local build, testing, and promotion to the Stage environment.
 
-### 4. 🏗️ Refactorisation "Best Practices"
-L'IA a suggéré et exécuté une réorganisation structurelle majeure pour passer d'une racine encombrée à une structure professionnelle :
-- Regroupement des apps dans `apps/`.
-- Centralisation de l'IaC dans `infrastructure/`.
-- Gestion propre de Kubernetes dans `k8s/` (séparation des charts et des environnements).
+### 4. 🏗️ "Best Practices" Refactoring
+The AI suggested and executed a major structural reorganization to move from a cluttered root to a professional structure:
+- Grouping apps in `apps/`.
+- Centralizing IaC in `infrastructure/`.
+- Clean management of Kubernetes in `k8s/` (separation of charts and environments).
 
-## 🚀 Architecture Globale
+## 🚀 Global Architecture
 
 ```mermaid
 graph TD
@@ -39,24 +39,24 @@ graph TD
         TF[Terraform]
     end
     
-    subgraph "Logiciel"
+    subgraph "Logic"
         A
         B
         PROTOS[Shared Protos]
     end
 ```
 
-## 🛠️ Outils d'Automatisation
+## 🛠️ Automation Tools
 
-| Script | Rôle |
+| Script | Role |
 | :--- | :--- |
-| `scripts/build-and-test.ps1` | Build Docker et tests unitaires locaux. |
-| `scripts/promote-to-stage.ps1` | Pousse une version validée du Dev vers le Stage. |
-| `scripts/create-pr.ps1` | Automatise la création de Pull Requests via l'API GitHub. |
+| `scripts/build-and-test.ps1` | Docker build and local unit tests. |
+| `scripts/promote-to-stage.ps1` | Promotes a validated version from Dev to Stage. |
+| `scripts/create-pr.ps1` | Automates Pull Request creation via the GitHub API. |
 
 ---
 
-## 👨‍🏫 Comment utiliser ce repo ?
-Ce projet est conçu pour montrer comment une IA peut non seulement écrire du code, mais aussi **gérer la structure, l'infrastructure et la gouvernance** d'un projet complexe. 
+## 👨‍🏫 How to use this repo?
+This project is designed to show how an AI can not only write code but also **manage the structure, infrastructure, and governance** of a complex project. 
 
-N'hésitez pas à explorer le dossier `.gemini/antigravity/brain/` (si disponible) pour voir les plans d'exécution et le cheminement de pensée de l'IA durant ce projet.
+Feel free to explore the `.gemini/antigravity/brain/` folder (if available) to see the execution plans and the AI's thought process during this project.
