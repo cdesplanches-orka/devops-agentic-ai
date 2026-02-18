@@ -1,0 +1,6 @@
+[submodule "apps/ms-a"]
+	path = apps/ms-a
+	url = https://github.com/cdesplanches-orka/microservice-a.git
+[submodule "apps/ms-b"]
+	path = apps/ms-b
+	url = https://github.com/cdesplanches-orka/microservice-b.git

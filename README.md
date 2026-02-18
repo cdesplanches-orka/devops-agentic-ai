@@ -59,4 +59,15 @@ graph TD
 ## 👨‍🏫 How to use this repo?
 This project is designed to show how an AI can not only write code but also **manage the structure, infrastructure, and governance** of a complex project. 
 
+### Cloning the repository
+Since this repository uses Git Submodules for the microservices, you must use the `--recursive` flag when cloning:
+```bash
+git clone --recursive https://github.com/cdesplanches-orka/devops-agentic-ai.git
+```
+
+If you have already cloned it without the flag, run:
+```bash
+git submodule update --init --recursive
+```
+
 Feel free to explore the `.gemini/antigravity/brain/` folder (if available) to see the execution plans and the AI's thought process during this project.
