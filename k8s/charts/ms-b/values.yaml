@@ -1,8 +1,8 @@
 replicaCount: 2
 
 image:
-  repository: ghcr.io/cdesplanches-orka/microservice-b
-  tag: "873b0468a0599be210e56a0a66415d8dcda3564b" # or "latest" also
+  repository: ghcr.io/cdesplanches-orka/microservice-b/ms-b
+  tag: "latest"
 
 serviceA:
   url: "http://microservice-a:80"

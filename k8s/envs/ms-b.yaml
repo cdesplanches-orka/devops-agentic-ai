@@ -1,38 +1,54 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: { { include "microservice-b.fullname" . } }
+  name: microservice-b
+  labels:
+    app: microservice-b
 spec:
-  replicas: { { .Values.replicaCount } }
+  replicas: 2
   selector:
     matchLabels:
-      app: { { include "microservice-b.name" . } }
+      app: microservice-b
   template:
     metadata:
       labels:
-        app: { { include "microservice-b.name" . } }
+        app: microservice-b
     spec:
       imagePullSecrets:
         - name: ghcr-secret
       containers:
         - name: microservice-b
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: ghcr.io/cdesplanches-orka/microservice-b/ms-b:latest
           ports:
-            - containerPort: { { .Values.service.targetPort } }
+            - containerPort: 3001
           env:
             - name: SERVICE_A_URL
-              value: "{{ .Values.serviceA.url }}"
+              value: "http://microservice-a:80"
             - name: SERVICE_A_GRPC
-              value: "{{ .Values.serviceA.grpcAddress }}"
+              value: "microservice-a:50051"
           readinessProbe:
             httpGet:
               path: /health
-              port: { { .Values.service.targetPort } }
+              port: 3001
             initialDelaySeconds: 5
             periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /health
-              port: { { .Values.service.targetPort } }
+              port: 3001
             initialDelaySeconds: 10
             periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: microservice-b
+spec:
+  selector:
+    app: microservice-b
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3001
+  type: LoadBalancer
