@@ -1,12 +1,12 @@
 ﻿apiVersion: v1
 kind: Service
 metadata:
-  name: "{{ include "microservice-a.fullname" . }}"
+  name: {{ include "microservice-a.fullname" . | quote }}
   labels:
-    app: "{{ include "microservice-a.name" . }}"
+    app: {{ include "microservice-a.name" . | quote }}
 spec:
   selector:
-    app: "{{ include "microservice-a.name" . }}"
+    app: {{ include "microservice-a.name" . | quote }}
   ports:
     - name: http
       port: {{ .Values.service.port }}
