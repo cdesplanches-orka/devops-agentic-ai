@@ -1,45 +1,45 @@
 ﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: microservice-b
+  name: {{ include "microservice-b.fullname" . | quote }}
   labels:
-    app: microservice-b
+    app: {{ include "microservice-b.name" . | quote }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: microservice-b
+      app: {{ include "microservice-b.name" . | quote }}
   template:
     metadata:
       labels:
-        app: microservice-b
+        app: {{ include "microservice-b.name" . | quote }}
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/path: "/health"
-        prometheus.io/port: "3001"
+        prometheus.io/port: {{ .Values.service.targetPort | quote }}
     spec:
       imagePullSecrets:
         - name: ghcr-secret
       containers:
         - name: microservice-b
-          image: "ghcr.io/cdesplanches-orka/microservice-b/ms-b:latest"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: Always
           ports:
-            - containerPort: 3001
+            - containerPort: {{ .Values.service.targetPort }}
           env:
             - name: SERVICE_A_URL
-              value: "http://microservice-a:80"
+              value: "{{ .Values.serviceA.url }}"
             - name: SERVICE_A_GRPC
-              value: "microservice-a:50051"
+              value: "{{ .Values.serviceA.grpcAddress }}"
           readinessProbe:
             httpGet:
               path: /health
-              port: 3001
+              port: {{ .Values.service.targetPort }}
             initialDelaySeconds: 5
             periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /health
-              port: 3001
+              port: {{ .Values.service.targetPort }}
             initialDelaySeconds: 10
             periodSeconds: 10
