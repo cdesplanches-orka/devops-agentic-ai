@@ -1,43 +1,43 @@
 ﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: { { include "microservice-a.fullname" . | quote } }
+  name: microservice-a
   labels:
-    app: { { include "microservice-a.name" . | quote } }
+    app: microservice-a
 spec:
-  replicas: { { .Values.replicaCount } }
+  replicas: 1
   selector:
     matchLabels:
-      app: { { include "microservice-a.name" . | quote } }
+      app: microservice-a
   template:
     metadata:
       labels:
-        app: { { include "microservice-a.name" . | quote } }
+        app: microservice-a
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/path: "/health"
-        prometheus.io/port: { { .Values.service.targetPort | quote } }
+        prometheus.io/port: "3000"
     spec:
       imagePullSecrets:
         - name: ghcr-secret
       containers:
         - name: microservice-a
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "ghcr.io/cdesplanches-orka/microservice-a/ms-a:latest"
           imagePullPolicy: Always
           ports:
             - name: http
-              containerPort: { { .Values.service.targetPort } }
+              containerPort: 3000
             - name: grpc
-              containerPort: { { .Values.service.grpcPort } }
+              containerPort: 50051
           readinessProbe:
             httpGet:
               path: /health
-              port: { { .Values.service.targetPort } }
+              port: 3000
             initialDelaySeconds: 5
             periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /health
-              port: { { .Values.service.targetPort } }
+              port: 3000
             initialDelaySeconds: 10
             periodSeconds: 10
