@@ -1,4 +1,4 @@
-﻿apiVersion: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: { { include "microservice-a.fullname" . | quote } }
@@ -13,13 +13,7 @@ spec:
     metadata:
       labels:
         app: { { include "microservice-a.name" . | quote } }
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/path: "/health"
-        prometheus.io/port: { { .Values.service.targetPort | quote } }
     spec:
-      imagePullSecrets:
-        - name: ghcr-secret
       containers:
         - name: microservice-a
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
