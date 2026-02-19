@@ -1,13 +1,13 @@
 ﻿apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "microservice-b.fullname" . | quote }}
+  name: { { include "microservice-b.fullname" . | quote } }
   labels:
-    app: {{ include "microservice-b.name" . | quote }}
+    app: { { include "microservice-b.name" . | quote } }
 spec:
   selector:
-    app: {{ include "microservice-b.name" . | quote }}
+    app: { { include "microservice-b.name" . | quote } }
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.targetPort }}
+    - port: { { .Values.service.port } }
+      targetPort: { { .Values.service.targetPort } }
   type: ClusterIP

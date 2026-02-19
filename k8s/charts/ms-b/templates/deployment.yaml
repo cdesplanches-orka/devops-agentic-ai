@@ -1,22 +1,22 @@
 ﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "microservice-b.fullname" . | quote }}
+  name: { { include "microservice-b.fullname" . | quote } }
   labels:
-    app: {{ include "microservice-b.name" . | quote }}
+    app: { { include "microservice-b.name" . | quote } }
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: { { .Values.replicaCount } }
   selector:
     matchLabels:
-      app: {{ include "microservice-b.name" . | quote }}
+      app: { { include "microservice-b.name" . | quote } }
   template:
     metadata:
       labels:
-        app: {{ include "microservice-b.name" . | quote }}
+        app: { { include "microservice-b.name" . | quote } }
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/path: "/health"
-        prometheus.io/port: {{ .Values.service.targetPort | quote }}
+        prometheus.io/port: { { .Values.service.targetPort | quote } }
     spec:
       imagePullSecrets:
         - name: ghcr-secret
@@ -25,7 +25,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: Always
           ports:
-            - containerPort: {{ .Values.service.targetPort }}
+            - containerPort: { { .Values.service.targetPort } }
           env:
             - name: SERVICE_A_URL
               value: "{{ .Values.serviceA.url }}"
@@ -34,12 +34,12 @@ spec:
           readinessProbe:
             httpGet:
               path: /health
-              port: {{ .Values.service.targetPort }}
+              port: { { .Values.service.targetPort } }
             initialDelaySeconds: 5
             periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /health
-              port: {{ .Values.service.targetPort }}
+              port: { { .Values.service.targetPort } }
             initialDelaySeconds: 10
             periodSeconds: 10
