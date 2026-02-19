@@ -13,6 +13,10 @@ spec:
     metadata:
       labels:
         app: "{{ include "microservice-a.name" . }}"
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/health"
+        prometheus.io/port: "{{ .Values.service.targetPort }}"
     spec:
       imagePullSecrets:
         - name: ghcr-secret
