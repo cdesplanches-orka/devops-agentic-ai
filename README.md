@@ -30,8 +30,8 @@ The microservices are managed as independent repositories linked via **Git Submo
 
 ## 🚀 Key Features
 
-- **Automated CI/CD**: Full pipelines for testing, building, and pushing Docker images to GHCR.
-- **Infrastructure as Code**: Kubernetes manifests and Helm charts located in `k8s/`.
+- **Automated CI/CD**: Full pipelines for testing, building, and pushing Docker images to GHCR (GitHub Actions v4).
+- **Infrastructure as Code**: Kubernetes manifests and Helm charts in `k8s/` with resource limits and probes.
 - **DevOps Scripts**: PowerShell tools for environment promotion and PR automation.
 
 ---
@@ -45,10 +45,36 @@ git clone --recursive https://github.com/cdesplanches-orka/devops-agentic-ai.git
 ```
 
 ### Repository Structure
-- `apps/`: The microservices (Submodules).
-- `shared/grpc-lib/`: The central gRPC contract library.
-- `k8s/`: Kubernetes orchestration (Charts & Environments).
-- `scripts/`: Automation and governance utilities.
+| Path | Description |
+|------|-------------|
+| `apps/` | Microservices (Git submodules) |
+| `shared/grpc-lib/` | Central gRPC contract library |
+| `k8s/charts/` | Helm charts (ms-a, ms-b, grafana-values) — **ArgoCD sync source** |
+| `k8s/envs/` | Standalone manifests for direct apply |
+| `k8s/argocd/` | ArgoCD Application definitions |
+| `scripts/` | PowerShell automation utilities |
+| `docs/` | Operations guide |
+
+### Kubernetes deployment
+Before deploying, create the GHCR image pull secret. See [docs/OPERATIONS.md](docs/OPERATIONS.md) for details.
+
+---
+
+## 📜 Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/build-and-test.ps1` | Build and test both microservices (run from repo root or `scripts/`) |
+| `scripts/promote-to-stage.ps1` | Promote image tag to Stage |
+| `scripts/deploy-prod.ps1` | Blue-Green or Canary deployment (mock) |
+| `scripts/create-pr.ps1` | Create PR via GitHub API (requires `GITHUB_TOKEN`) |
+| `scripts/verify-live.ps1` | Verify stack with Docker Compose |
+
+---
+
+## 📖 Documentation
+
+- **[docs/OPERATIONS.md](docs/OPERATIONS.md)** — GHCR secret setup, scripts usage, Kubernetes structure, Grafana deployment.
 
 ---
 
