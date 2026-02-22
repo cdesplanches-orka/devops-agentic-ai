@@ -2,6 +2,27 @@
 
 This document covers operational procedures for the DevOps ecosystem.
 
+## Troubleshooting: npm 401 Unauthorized for @cdesplanches-orka/grpc-lib
+
+If CI fails with:
+```
+npm error 401 Unauthorized - GET https://npm.pkg.github.com/@cdesplanches-orka%2fgrpc-lib
+```
+
+### 1. Grant package access to consuming repositories
+
+The package `@cdesplanches-orka/grpc-lib` must allow `microservice-a` and `microservice-b` to use it:
+
+1. Go to **https://github.com/orgs/cdesplanches-orka/packages**
+2. Click on **grpc-lib**
+3. **Package settings** (right sidebar) → **Manage Actions access**
+4. Click **Add repositories** and add: `microservice-a`, `microservice-b`
+5. Save
+
+### 2. Verify PAT scope
+
+The `PAT` secret must have the **read:packages** scope. Create a new Personal Access Token with that scope if needed.
+
 ## Prerequisites
 
 - Docker Desktop (for local builds)
