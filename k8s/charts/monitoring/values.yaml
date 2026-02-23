@@ -2,6 +2,9 @@
 # Didactic setup for DevOps Agentic AI - node-exporter disabled for Docker Desktop compatibility
 
 kube-prometheus-stack:
+  crds:
+    enabled: false
+    
   # Disable node-exporter (CrashLoopBackOff on Docker Desktop / single-node)
   nodeExporter:
     enabled: false
