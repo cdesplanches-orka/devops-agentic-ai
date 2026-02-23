@@ -67,21 +67,21 @@ Repeat for other namespaces (e.g., `argocd`, `monitoring`) if needed.
 
 ## Kubernetes Structure
 
-- **`k8s/charts/`** — Helm charts (ms-a, ms-b). **ArgoCD syncs from this path**.
+- **`k8s/charts/`** — Helm charts (ms-a, ms-b, monitoring). **ArgoCD syncs from this path**.
 - **`k8s/envs/`** — Standalone manifests for direct apply (ms-a, ms-b, ingresses).
 - **`k8s/argocd/`** — ArgoCD Application definitions.
 
-ArgoCD uses `k8s/charts` with `directory.recurse: true` to deploy both microservice charts.
+ArgoCD Applications: microservice-a, microservice-b, monitoring.
 
 ---
 
-## Monitoring (Grafana)
+## Monitoring (Prometheus + Grafana)
 
-- **`k8s/charts/grafana-values.yaml`** — Values file for the Grafana Helm chart (e.g., via `helm install grafana grafana/grafana -f k8s/charts/grafana-values.yaml`).
-- **`k8s/envs/monitoring-ingress.yaml`** — Ingress for Grafana in the `monitoring` namespace (references `prometheus-grafana`; adjust service name if using standalone Grafana chart).
+Le stack de monitoring est déployé via ArgoCD (Application `monitoring`).
 
-To deploy Grafana separately:
-```bash
-helm repo add grafana https://grafana.github.io/helm-charts
-helm install grafana grafana/grafana -f k8s/charts/grafana-values.yaml -n monitoring
-```
+| URL | Service |
+|-----|---------|
+| **http://localhost/grafana** | Grafana (user: `admin`, password: `admin`) |
+| Prometheus | Service interne `prometheus-operated` (port-forward si besoin) |
+
+**Composants :** Prometheus, Grafana, Alertmanager, kube-state-metrics. Node-exporter est désactivé (incompatibilité Docker Desktop).

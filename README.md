@@ -49,7 +49,7 @@ git clone --recursive https://github.com/cdesplanches-orka/devops-agentic-ai.git
 |------|-------------|
 | `apps/` | Microservices (Git submodules) |
 | `shared/grpc-lib/` | Central gRPC contract library |
-| `k8s/charts/` | Helm charts (ms-a, ms-b, grafana-values) — **ArgoCD sync source** |
+| `k8s/charts/` | Helm charts (ms-a, ms-b, monitoring) — **ArgoCD sync source** |
 | `k8s/envs/` | Standalone manifests for direct apply |
 | `k8s/argocd/` | ArgoCD Application definitions |
 | `scripts/` | PowerShell automation utilities |

@@ -35,3 +35,6 @@ kubeconfig
 tmp/
 temp/
 *.tmp
+
+# Helm chart dependencies (fetched by ArgoCD/helm dep build)
+**/charts/*.tgz
