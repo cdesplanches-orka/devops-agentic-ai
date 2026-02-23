@@ -16,9 +16,6 @@ kube-prometheus-stack:
         - localhost
       path: /grafana
       pathType: Prefix
-      annotations:
-        nginx.ingress.kubernetes.io/rewrite-target: /$2
-        nginx.ingress.kubernetes.io/use-regex: "true"
     grafanaIni:
       server:
         domain: localhost
