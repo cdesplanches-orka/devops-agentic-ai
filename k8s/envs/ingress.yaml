@@ -25,10 +25,3 @@ spec:
                 name: microservice-b
                 port:
                   number: 80
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: microservice-b
-                port:
-                  number: 80
