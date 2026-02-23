@@ -24,7 +24,16 @@ kube-prometheus-stack:
 
   # Prometheus: keep default config, reduce retention for dev
   prometheus:
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts:
+        - localhost
+      paths:
+        - /prometheus
+      pathType: Prefix
     prometheusSpec:
+      externalUrl: http://localhost/prometheus
       retention: 7d
       storageSpec:
         volumeClaimTemplate:
