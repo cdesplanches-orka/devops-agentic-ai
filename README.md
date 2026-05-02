@@ -8,7 +8,7 @@ This project has evolved from a simple microservices demo to a professional-grad
 
 ### 1. Contract-First gRPC
 We use an industrial "Level 3" approach to service communication:
-- **Centralized Registry**: gRPC definitions live in `@cdesplanches-orka/grpc-lib` (`shared/grpc-lib`).
+- **Centralized Registry**: gRPC definitions live in `@cdesplanches/grpc-lib` (`shared/grpc-lib`).
 - **Automated Distribution**: Protos are built and published to **GitHub Packages** via CI/CD.
 - **Decoupled Services**: Microservices consume the contract as a standard NPM versioned dependency.
 
@@ -23,8 +23,8 @@ graph TD
 
 ### 2. Poly-repo Management
 The microservices are managed as independent repositories linked via **Git Submodules**:
-- `apps/ms-a` -> [microservice-a](https://github.com/cdesplanches-orka/microservice-a)
-- `apps/ms-b` -> [microservice-b](https://github.com/cdesplanches-orka/microservice-b)
+- `apps/ms-a` -> [microservice-a](https://github.com/cdesplanches/microservice-a)
+- `apps/ms-b` -> [microservice-b](https://github.com/cdesplanches/microservice-b)
 
 ---
 
@@ -41,7 +41,7 @@ The microservices are managed as independent repositories linked via **Git Submo
 ### Cloning the repository
 Since this project uses Git Submodules, use the `--recursive` flag:
 ```bash
-git clone --recursive https://github.com/cdesplanches-orka/devops-agentic-ai.git
+git clone --recursive https://github.com/cdesplanches/devops-agentic-ai.git
 ```
 
 ### Repository Structure
